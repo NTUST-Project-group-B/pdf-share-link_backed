@@ -13,3 +13,5 @@ wheels/
 mydata.db
 storage/*
 !storage/.gitkeep
+
+.env

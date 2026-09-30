@@ -1,14 +1,21 @@
 from __future__ import annotations
 
 from fastapi import Depends, FastAPI, HTTPException, Request, UploadFile
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 
 from domain.models import click_limit_reached, link_expired, link_not_found
-from server.config import PAGE_HTML_PATH
+from server.config import CORS_ORIGINS, PAGE_HTML_PATH
 from server.dependencies import get_link_service
 from service.link_service import link_service
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins = CORS_ORIGINS,
+    allow_methods = ["*"],
+    allow_headers = ["*"],
+)
 
 @app.get("/")
 async def root() -> FileResponse:
